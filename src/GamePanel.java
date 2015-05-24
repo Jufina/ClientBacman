@@ -8,7 +8,13 @@ import java.awt.geom.Ellipse2D;
 public class GamePanel extends JPanel {
     private byte[][] map;
     private byte[] teamScores;
+    private JLabel scoreTeam;
+
     GamePanel() {
+        scoreTeam=new JLabel("0:0");
+        Font fnt=new Font("Arial", Font.BOLD|Font.ITALIC, 30);
+        scoreTeam.setFont(fnt);
+        add(scoreTeam);
         map = new byte[20][20];
         teamScores = new byte[2];
     }
@@ -77,5 +83,6 @@ public class GamePanel extends JPanel {
         }
         teamScores[0] = gameState[20*20];
         teamScores[1] = gameState[20*20 + 1];
+        scoreTeam.setText(teamScores[0]+":"+teamScores[1]);
     }
 }

@@ -8,7 +8,10 @@ import java.awt.event.KeyListener;
 public class GameDrawing extends JFrame {
     private static GamePanel gp;
     private byte movePlayer;
-    public void GameDrawing() {
+    GameDrawing() {
+        setSize(600,600);
+        setResizable(false);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         gp=new GamePanel();
         add(gp);
         KeyListener kl=new KeyListener() {
@@ -19,11 +22,6 @@ public class GameDrawing extends JFrame {
 
             @Override
             public void keyPressed(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
                 String keyText = (e.getKeyText(e.getKeyCode()));
 
                 if (keyText.equals("S")) {
@@ -38,6 +36,11 @@ public class GameDrawing extends JFrame {
                 if (keyText.equals("D")) {
                     movePlayer=1;
                 }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
             }
         };
         addKeyListener(kl);

@@ -34,13 +34,12 @@ public class Client {
         try {
             s.setSoTimeout(600);
             while (true) {
+
                 gameDrawing.draw(pac.getData());
                 data[0]=gameDrawing.getMovePlayer();
                 pac.setData(data);
                 s.send(pac);
                 s.receive(pac);
-                System.out.println("Клиент получает пипиську (===3");
-
             }
         } catch (SocketTimeoutException e) {
             // если время ожидания вышло
