@@ -1,6 +1,11 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Julia on 24.05.2015.
@@ -9,6 +14,7 @@ public class GamePanel extends JPanel {
     private byte[][] map;
     private byte[] teamScores;
     private JLabel scoreTeam;
+    Image[] img1;
 
     GamePanel() {
         scoreTeam=new JLabel("0:0");
@@ -17,6 +23,19 @@ public class GamePanel extends JPanel {
         add(scoreTeam);
         map = new byte[20][20];
         teamScores = new byte[2];
+
+        try {
+            img1=new Image[4];
+            for(int i=0; i<4; i++) {
+                img1[i] = ImageIO.read(new File("picture"+i+".gif"));
+            }
+
+        }
+        catch(IOException ex)
+        {
+            Logger.getLogger(JFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -24,10 +43,10 @@ public class GamePanel extends JPanel {
         int frW,frH;
         frW = getWidth();
         frH= getHeight();
-
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         int sizeBlockX=frW/20;
         int sizeBlockY=frH/20;
-
+        //System.out.println(sizeBlockX+" , "+sizeBlockY);
         for(int y=0; y<20; y++) {
             for(int x=0; x<20; x++) {
                 switch(map[y][x]) {
@@ -63,10 +82,17 @@ public class GamePanel extends JPanel {
                         g2.fill(pl3);
                         break;
                     case 4:
+                        /*
                         g2.setColor(Color.magenta);
                         Ellipse2D pl4=new Ellipse2D.Double(x*sizeBlockX,y*sizeBlockY,sizeBlockX,sizeBlockY);
                         g2.draw(pl4);
                         g2.fill(pl4);
+                        */
+
+
+                        g.drawImage(img1[Client.getMpl()], x*sizeBlockX, y*sizeBlockY, null);
+
+
                         break;
                 }
             }
