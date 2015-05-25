@@ -9,7 +9,7 @@ import java.net.SocketTimeoutException;
  */
 public class Client {
     /* *JULIA*/
-    private static int mpl;
+    private int mpl;
 
     public int numberClient;
 
@@ -24,7 +24,7 @@ public class Client {
     }
     public void run(int recport) throws IOException {
 
-        int pacSize = 20*20+2;
+        int pacSize = 20*20+6;
         int sendport = 4444;
         byte data[] = new byte[pacSize];
         InetAddress addr = InetAddress.getLocalHost();
@@ -56,7 +56,7 @@ public class Client {
                 data[0]=gameDrawing.getMovePlayer();
                 pac.setData(data);
                 s.send(pac);
-                mpl=data[0];
+
                 s.receive(pac);
             }
         } catch (SocketTimeoutException e) {
@@ -65,9 +65,7 @@ public class Client {
         }
     }
     /*JULIA */
-    public static int getMpl() {
-        return mpl;
-    }
+
 
 
 }

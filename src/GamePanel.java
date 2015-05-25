@@ -14,9 +14,14 @@ public class GamePanel extends JPanel {
     private byte[][] map;
     private byte[] teamScores;
     private JLabel scoreTeam;
+    private byte[] movePlayer;
     Image[] img1;
+    Image[] img2;
+    Image[] img3;
+    Image[] img4;
 
     GamePanel() {
+        movePlayer = new byte[4];
         scoreTeam=new JLabel("0:0");
         Font fnt=new Font("Arial", Font.BOLD|Font.ITALIC, 30);
         scoreTeam.setFont(fnt);
@@ -26,8 +31,20 @@ public class GamePanel extends JPanel {
 
         try {
             img1=new Image[4];
+            img2=new Image[4];
+            img3=new Image[4];
+            img4=new Image[4];
             for(int i=0; i<4; i++) {
-                img1[i] = ImageIO.read(new File("picture"+i+".gif"));
+                img1[i] = ImageIO.read(new File("picture_1_"+i+".gif"));
+            }
+            for(int i=0; i<4; i++) {
+                img2[i] = ImageIO.read(new File("picture_2_"+i+".gif"));
+            }
+            for(int i=0; i<4; i++) {
+                img3[i] = ImageIO.read(new File("picture_3_"+i+".gif"));
+            }
+            for(int i=0; i<4; i++) {
+                img4[i] = ImageIO.read(new File("picture_4_"+i+".gif"));
             }
 
         }
@@ -63,23 +80,13 @@ public class GamePanel extends JPanel {
                         g2.fill(ball);
                         break;
                     case 1:
-
-                        g2.setColor(Color.CYAN);
-                        Ellipse2D pl1=new Ellipse2D.Double(x*sizeBlockX,y*sizeBlockY,sizeBlockX,sizeBlockY);
-                        g2.draw(pl1);
-                        g2.fill(pl1);
+                        g.drawImage(img1[movePlayer[0]], x*sizeBlockX, y*sizeBlockY, null);
                         break;
                     case 2:
-                        g2.setColor(Color.RED);
-                        Ellipse2D pl2=new Ellipse2D.Double(x*sizeBlockX,y*sizeBlockY,sizeBlockX,sizeBlockY);
-                        g2.draw(pl2);
-                        g2.fill(pl2);
+                        g.drawImage(img2[movePlayer[1]], x*sizeBlockX, y*sizeBlockY, null);
                         break;
                     case 3:
-                        g2.setColor(Color.BLUE);
-                        Ellipse2D pl3=new Ellipse2D.Double(x*sizeBlockX,y*sizeBlockY,sizeBlockX,sizeBlockY);
-                        g2.draw(pl3);
-                        g2.fill(pl3);
+                        g.drawImage(img3[movePlayer[2]], x * sizeBlockX, y * sizeBlockY, null);
                         break;
                     case 4:
                         /*
@@ -89,10 +96,11 @@ public class GamePanel extends JPanel {
                         g2.fill(pl4);
                         */
 
+                        g.drawImage(img4[movePlayer[3]], x*sizeBlockX, y*sizeBlockY, null);
 
-                        g.drawImage(img1[Client.getMpl()], x*sizeBlockX, y*sizeBlockY, null);
 
-
+                        break;
+                    default:
                         break;
                 }
             }
@@ -110,5 +118,6 @@ public class GamePanel extends JPanel {
         teamScores[0] = gameState[20*20];
         teamScores[1] = gameState[20*20 + 1];
         scoreTeam.setText(teamScores[0]+":"+teamScores[1]);
+        System.arraycopy(gameState, 20*20 + 2, movePlayer, 0, 4);
     }
 }

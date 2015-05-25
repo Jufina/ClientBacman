@@ -8,7 +8,7 @@ import java.awt.event.KeyListener;
 
 
 public class GameDrawing extends JFrame {
-    private static GamePanel gp;
+    private GamePanel gp;
     private byte movePlayer;
     GameDrawing(int player) {
         String[] color=new String[4];
